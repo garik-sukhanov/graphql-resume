@@ -21,7 +21,7 @@ services:
     image: graphql-resume-migrate
     restart: "no"
     environment:
-      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:${POSTGRES_PORT}/${POSTGRES_DB}?schema=public
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}?schema=public
     depends_on:
       db:
         condition: service_healthy
@@ -33,6 +33,8 @@ services:
     restart: unless-stopped
     env_file:
       - .env
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}?schema=public
     ports:
       - 3333:3333
     depends_on:

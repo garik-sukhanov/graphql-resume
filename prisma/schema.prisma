@@ -6,6 +6,8 @@
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
+  runtime      = "nodejs"
+  moduleFormat = "cjs"
 }
 
 datasource db {
@@ -17,7 +19,6 @@ model User {
   email       String    @unique
   name        String?   @db.VarChar(50)
   description String?   @db.VarChar(500)
-  skills      Skill[]
   createdAt   DateTime  @default(now()) @map(name: "created_at")
   updatedAt   DateTime  @default(now()) @updatedAt @map(name: "updated_at")
 
@@ -28,8 +29,6 @@ model User {
 model Skill {
   id        String     @db.Uuid   @id @default(uuid())
   name      String     @db.VarChar(50)
-  userId  String     @db.Uuid
-  user    User     @relation(fields: [userId], references: [id])
 
   @@map("skills")
 }

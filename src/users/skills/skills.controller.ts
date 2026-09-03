@@ -29,7 +29,7 @@ export class SkillsController {
   @Get('/:skillId')
   async getOne(
     @Param() { skillId }: GetSkillParams,
-  ): Promise<ReadSkillDTO | undefined> {
+  ): Promise<ReadSkillDTO | null> {
     return await this.skillsService.getOne(skillId);
   }
 

@@ -5,6 +5,7 @@ import { AppService } from './app.service.js';
 import { GraphQLModule, Query, Resolver } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { UsersModule } from './users/users.module.js';
+import { PrismaModule } from './prisma/prisma.module.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -35,6 +36,7 @@ console.log(process.env.YOUR_APP_KEY);
       },
     }),
     UsersModule,
+    PrismaModule,
   ],
   controllers: [AppController],
   providers: [AppService, FooResolver],
