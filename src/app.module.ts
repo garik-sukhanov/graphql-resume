@@ -4,6 +4,7 @@ import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { GraphQLModule, Query, Resolver } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { ProfileModule } from './profile/profile.module';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -33,6 +34,7 @@ console.log(process.env.YOUR_APP_KEY);
         url: '/graphql',
       },
     }),
+    ProfileModule,
   ],
   controllers: [AppController],
   providers: [AppService, FooResolver],
