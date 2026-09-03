@@ -7,4 +7,4 @@ import { SkillsService } from './skills/skills.service';
   controllers: [SkillsController],
   providers: [SkillsService],
 })
-export class ProfileModule {}
+export class UsersModule {}

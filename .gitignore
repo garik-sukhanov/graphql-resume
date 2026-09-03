@@ -57,3 +57,9 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # lock files
 *-lock.json
+
+/src/generated/prisma
+
+.agents
+.claude
+.windsurf
