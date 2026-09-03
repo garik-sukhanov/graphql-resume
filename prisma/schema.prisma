@@ -12,15 +12,6 @@ datasource db {
   provider = "postgresql"
 }
 
-model Skill {
-  id        String     @db.Uuid   @id @default(uuid())
-  name      String     @db.VarChar(50)
-  userId  String
-  user    User     @relation(fields: [userId], references: [id])
-
-  @@map("skills")
-}
-
 model User {
   id          String    @db.Uuid   @id @default(uuid())
   email       String    @unique
@@ -31,4 +22,14 @@ model User {
   updatedAt   DateTime  @default(now()) @updatedAt @map(name: "updated_at")
 
   @@map("Users")
+}
+
+
+model Skill {
+  id        String     @db.Uuid   @id @default(uuid())
+  name      String     @db.VarChar(50)
+  userId  String     @db.Uuid
+  user    User     @relation(fields: [userId], references: [id])
+
+  @@map("skills")
 }

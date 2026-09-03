@@ -1,28 +1,39 @@
-#--- base image
+# --- base
 FROM node:22-alpine AS base
+RUN apk add --no-cache openssl
 WORKDIR /app
 COPY package*.json ./
 
-#--- dev 
-FROM base AS dev
+# --- deps
+FROM base AS deps
 RUN npm ci
+
+# --- dev
+FROM deps AS dev
 COPY . .
+RUN npx prisma generate
 CMD ["npm", "run", "start:dev"]
 
-#--- builder
-FROM base AS builder
-RUN npm ci
+# --- builder
+FROM deps AS builder
 COPY . .
-RUN npm run build && npm prune --omit=dev
+RUN npx prisma generate
+RUN npm run build
+
+# --- migrator
+FROM builder AS migrator
+CMD ["npx", "prisma", "migrate", "deploy"]
+
+# --- pruned
+FROM builder AS pruned
+RUN npm prune --omit=dev
 
 # --- prod
 FROM base AS prod
-WORKDIR /app
 ENV NODE_ENV=production
-COPY --from=builder /app/node_modules /node_modules
-COPY --from=builder /app/dist /dist
-COPY package*.json .
+COPY --from=pruned --chown=node:node /app/node_modules ./node_modules
+COPY --from=pruned --chown=node:node /app/dist ./dist
+COPY --from=pruned --chown=node:node /app/prisma ./prisma
 USER node
 EXPOSE 3333
-ENTRYPOINT [ "node"]
-CMD [ "/dist/index.js"]
+CMD ["node", "dist/main.js"]
