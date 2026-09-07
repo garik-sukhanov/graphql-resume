@@ -1,0 +1,69 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateProfileInput {
+  description: String!
+  email: String!
+  name: String!
+}
+
+input CreateSkillDTO {
+  category: String!
+  level: Int!
+  name: String!
+  profileId: ID!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input GetSkillsParams {
+  limit: Int! = 100
+  profileId: ID
+}
+
+type Mutation {
+  createProfile(createProfileInput: CreateProfileInput!): Profile!
+  createSkill(createSkillInput: CreateSkillDTO!): Skill!
+  removeProfile(id: ID!): Profile!
+  removeSkill(id: ID!): Skill
+  updateProfile(updateProfileInput: UpdateProfileInput!): Profile!
+}
+
+type Profile {
+  createdAt: DateTime!
+  description: String
+  email: String!
+  id: ID!
+  name: String
+  updatedAt: DateTime!
+}
+
+type Query {
+  findAllProfiles: [Profile!]!
+  findManySkills(params: GetSkillsParams): [Skill!]!
+  findOneProfile(id: ID!): Profile
+  findOneSkill(id: ID!): Skill
+}
+
+type Skill {
+  category: String!
+  createdAt: DateTime!
+  id: ID!
+  level: Int!
+  name: String!
+  profileId: ID!
+  updatedAt: DateTime!
+}
+
+input UpdateProfileInput {
+  description: String
+  email: String
+
+  """The id of the profile"""
+  id: String!
+  name: String
+}
