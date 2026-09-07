@@ -1,5 +1,5 @@
-import { InputType, Field, Int } from '@nestjs/graphql';
-import { Length, Max, Min } from 'class-validator';
+import { InputType, Field, Int, ID } from '@nestjs/graphql';
+import { IsUUID, Length, Max, Min } from 'class-validator';
 
 @InputType()
 export class CreateSkillDTO {
@@ -15,4 +15,8 @@ export class CreateSkillDTO {
   @Min(0)
   @Max(5)
   level: number;
+
+  @Field(() => ID)
+  @IsUUID(4)
+  profileId?: string;
 }

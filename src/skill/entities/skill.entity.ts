@@ -14,8 +14,8 @@ export class Skill {
   @Field(() => Int)
   level: number;
 
-  @Field(() => ID, { nullable: true })
-  profileId?: string;
+  @Field(() => ID)
+  profileId: string;
 
   @Field(() => Date)
   createdAt: Date;

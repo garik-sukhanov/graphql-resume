@@ -7,7 +7,7 @@ export class GetSkillsParams {
   @IsOptional()
   profileId?: string;
 
-  @Field(() => Int, { nullable: true, defaultValue: 100 })
+  @Field(() => Int, { defaultValue: 100 })
   @IsOptional()
   @IsInt()
   @Max(100)
