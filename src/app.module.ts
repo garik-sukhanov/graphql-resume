@@ -4,8 +4,9 @@ import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { GraphQLModule, Query, Resolver } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { UsersModule } from './users/users.module.js';
 import { PrismaModule } from './prisma/prisma.module.js';
+import { ProfileModule } from './profile/profile.module';
+import { SkillModule } from './skill/skill.module';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -34,9 +35,11 @@ console.log(process.env.YOUR_APP_KEY);
       graphiql: {
         url: '/graphql',
       },
+      playground: true,
     }),
-    UsersModule,
     PrismaModule,
+    ProfileModule,
+    SkillModule,
   ],
   controllers: [AppController],
   providers: [AppService, FooResolver],
