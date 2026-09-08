@@ -10,7 +10,7 @@ export class AddProjectInput {
 
   @Field(() => String)
   @IsString()
-  @Length(1, 50)
+  @Length(1, 500)
   description: string;
 
   @Field(() => String)
@@ -18,9 +18,9 @@ export class AddProjectInput {
   @Length(1, 100)
   linkGitHub: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @IsOptional()
   @IsUrl()
   @Length(1, 100)
-  linkDeploy?: string;
+  linkDeploy?: string | null;
 }

@@ -11,12 +11,12 @@ export class Experience {
   @Field(() => String)
   company: string;
 
-  @Field(() => String)
-  start: string;
+  @Field(() => Date)
+  start: Date;
 
-  @Field(() => String)
-  end: string;
+  @Field(() => Date, { nullable: true })
+  end: Date | null;
 
-  @Field(() => String)
-  description: string;
+  @Field(() => [String])
+  achievements: string[];
 }

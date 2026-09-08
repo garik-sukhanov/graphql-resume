@@ -48,7 +48,7 @@ export class ProfileResolver {
   }
 
   @ResolveField(() => [Project])
-  project(@Parent() profile: Profile) {
+  projects(@Parent() profile: Profile) {
     return this.projectService.get(profile.id);
   }
 

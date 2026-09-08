@@ -8,7 +8,7 @@ export class ProjectResolver {
   constructor(private readonly projectService: ProjectService) {}
 
   @Mutation(() => Project)
-  createProject(
+  addProject(
     @Args('profileId', { type: () => ID }) profileId: string,
     @Args('input') input: AddProjectInput,
   ) {
@@ -21,7 +21,7 @@ export class ProjectResolver {
   }
 
   @Mutation(() => Project)
-  removeProject(@Args('id', { type: () => ID }) id: string) {
-    return this.projectService.remove(id);
+  removeProject(@Args('projectId', { type: () => ID }) projectId: string) {
+    return this.projectService.remove(projectId);
   }
 }

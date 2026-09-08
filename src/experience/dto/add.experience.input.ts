@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsString, Length } from 'class-validator';
+import { IsDate, IsOptional, IsString, Length } from 'class-validator';
 
 @InputType()
 export class AddExperienceInput {
@@ -13,18 +13,17 @@ export class AddExperienceInput {
   @Length(1, 50)
   company: string;
 
-  @Field(() => String)
-  @IsString()
-  @Length(1, 50)
-  start: string;
+  @Field(() => Date)
+  @IsDate()
+  start: Date;
 
-  @Field(() => String)
-  @IsString()
-  @Length(1, 50)
-  end: string;
+  @Field(() => Date, { nullable: true })
+  @IsOptional()
+  @IsDate()
+  end: Date | null;
 
-  @Field(() => String)
-  @IsString()
-  @Length(1, 500)
-  description: string;
+  @Field(() => [String])
+  @IsString({ each: true })
+  @Length(1, 200, { each: true })
+  achievements: string[];
 }

@@ -14,6 +14,6 @@ export class Project {
   @Field(() => String)
   linkGitHub: string;
 
-  @Field(() => String)
-  linkDeploy?: string;
+  @Field(() => String, { nullable: true })
+  linkDeploy?: string | null;
 }
