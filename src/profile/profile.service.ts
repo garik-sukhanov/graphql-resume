@@ -7,12 +7,18 @@ import { UpdateProfileInput } from './dto/update-profile.input';
 export class ProfileService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create({ skills = [], experiences = [], ...profile }: CreateProfileInput) {
+  create({
+    skills = [],
+    experiences = [],
+    projects = [],
+    ...profile
+  }: CreateProfileInput) {
     return this.prisma.profile.create({
       data: {
         ...profile,
         skills: { create: skills },
         experiences: { create: experiences },
+        projects: { create: projects },
       },
     });
   }

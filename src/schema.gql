@@ -28,6 +28,7 @@ input CreateProfileInput {
   email: String!
   experiences: [AddExperienceInput!]! = []
   name: String!
+  projects: [AddProjectInput!]! = []
   skills: [AddSkillInput!]! = []
 }
 
