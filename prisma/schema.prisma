@@ -65,11 +65,11 @@ model Experience {
 }
 
 model Project {
-  id          String @id @default(uuid()) @db.Uuid
-  name        String @db.VarChar(50)
-  description String @db.VarChar(500)
-  linkGitHub  String @db.VarChar(100)
-  linkDeploy  String @db.VarChar(100)
+  id          String  @id @default(uuid()) @db.Uuid
+  name        String  @db.VarChar(50)
+  description String  @db.VarChar(500)
+  linkGitHub  String  @db.VarChar(100)
+  linkDeploy  String? @db.VarChar(100)
 
   profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
   profileId String   @db.Uuid

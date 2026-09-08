@@ -10,6 +10,13 @@ input AddExperienceInput {
   start: String!
 }
 
+input AddProjectInput {
+  description: String!
+  linkDeploy: String!
+  linkGitHub: String!
+  name: String!
+}
+
 input AddSkillInput {
   category: SkillCategory!
   level: Int!
@@ -42,8 +49,10 @@ type Mutation {
   addExperience(input: AddExperienceInput!, profileId: ID!): Experience!
   addSkill(input: AddSkillInput!, profileId: ID!): Skill!
   createProfile(input: CreateProfileInput!): Profile!
+  createProject(input: AddProjectInput!, profileId: ID!): Project!
   deleteProfile(profileId: ID!): Profile!
   removeExperience(experienceId: ID!): Experience!
+  removeProject(id: ID!): Project!
   removeSkill(skillId: ID!): Skill!
   updateProfile(input: UpdateProfileInput!, profileId: ID!): Profile!
 }
@@ -55,12 +64,22 @@ type Profile {
   experience: [Experience!]!
   id: ID!
   name: String!
+  project: [Project!]!
   skills: [Skill!]!
   updatedAt: DateTime!
 }
 
+type Project {
+  description: String!
+  id: ID!
+  linkDeploy: String!
+  linkGitHub: String!
+  name: String!
+}
+
 type Query {
   profile: Profile!
+  project(profileId: String!): [Project!]!
 }
 
 type Skill {

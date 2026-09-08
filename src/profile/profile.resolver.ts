@@ -1,5 +1,7 @@
 import { Experience } from '@/experience/entities/experience.entity';
 import { ExperienceService } from '@/experience/experience.service';
+import { Project } from '@/project/entities/project.entity';
+import { ProjectService } from '@/project/project.service';
 import { Skill } from '@/skill/entities/skill.entity';
 import { SkillService } from '@/skill/skill.service';
 import {
@@ -22,6 +24,7 @@ export class ProfileResolver {
     private readonly profileService: ProfileService,
     private readonly skillService: SkillService,
     private readonly experienceService: ExperienceService,
+    private readonly projectService: ProjectService,
   ) {}
 
   @Mutation(() => Profile, { name: 'createProfile' })
@@ -42,6 +45,11 @@ export class ProfileResolver {
   @ResolveField(() => [Experience])
   experience(@Parent() profile: Profile) {
     return this.experienceService.get(profile.id);
+  }
+
+  @ResolveField(() => [Project])
+  project(@Parent() profile: Profile) {
+    return this.projectService.get(profile.id);
   }
 
   @Mutation(() => Profile, { name: 'updateProfile' })
