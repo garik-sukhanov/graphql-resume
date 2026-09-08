@@ -21,7 +21,7 @@ export class Profile {
   skills?: Skill[];
 
   @Field(() => [Experience])
-  experience?: Experience[];
+  experiences?: Experience[];
 
   @Field(() => [Project])
   projects?: Project[];

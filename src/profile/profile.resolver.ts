@@ -43,7 +43,7 @@ export class ProfileResolver {
   }
 
   @ResolveField(() => [Experience])
-  experience(@Parent() profile: Profile) {
+  experiences(@Parent() profile: Profile) {
     return this.experienceService.get(profile.id);
   }
 

@@ -62,7 +62,7 @@ type Profile {
   createdAt: DateTime!
   description: String
   email: String!
-  experience: [Experience!]!
+  experiences: [Experience!]!
   id: ID!
   name: String!
   projects: [Project!]!

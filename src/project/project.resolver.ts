@@ -7,7 +7,7 @@ import { ProjectService } from './project.service';
 export class ProjectResolver {
   constructor(private readonly projectService: ProjectService) {}
 
-  @Mutation(() => Project)
+  @Mutation(() => Project, { name: 'addProject' })
   addProject(
     @Args('profileId', { type: () => ID }) profileId: string,
     @Args('input') input: AddProjectInput,
@@ -20,7 +20,7 @@ export class ProjectResolver {
     return this.projectService.get(profileId);
   }
 
-  @Mutation(() => Project)
+  @Mutation(() => Project, { name: 'removeProject' })
   removeProject(@Args('projectId', { type: () => ID }) projectId: string) {
     return this.projectService.remove(projectId);
   }
