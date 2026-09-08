@@ -1,5 +1,7 @@
+import { AddExperienceInput } from '@/experience/dto';
 import { AddSkillInput } from '@/skill/dto';
-import { InputType, Field } from '@nestjs/graphql';
+import { Field, InputType } from '@nestjs/graphql';
+import { Type } from 'class-transformer';
 import {
   IsEmail,
   IsOptional,
@@ -7,7 +9,6 @@ import {
   Length,
   ValidateNested,
 } from 'class-validator';
-import { Type } from 'class-transformer';
 
 @InputType()
 export class CreateProfileInput {
@@ -29,4 +30,9 @@ export class CreateProfileInput {
   @ValidateNested({ each: true })
   @Type(() => AddSkillInput)
   skills: AddSkillInput[];
+
+  @Field(() => [AddExperienceInput], { defaultValue: [] })
+  @ValidateNested({ each: true })
+  @Type(() => AddExperienceInput)
+  experiences: AddExperienceInput[];
 }

@@ -1,24 +1,27 @@
-import {
-  Resolver,
-  Query,
-  Mutation,
-  Args,
-  ID,
-  ResolveField,
-  Parent,
-} from '@nestjs/graphql';
-import { ProfileService } from './profile.service';
-import { Profile } from './entities/profile.entity';
-import { CreateProfileInput } from './dto/create-profile.input';
-import { UpdateProfileInput } from './dto/update-profile.input';
+import { Experience } from '@/experience/entities/experience.entity';
+import { ExperienceService } from '@/experience/experience.service';
 import { Skill } from '@/skill/entities/skill.entity';
 import { SkillService } from '@/skill/skill.service';
+import {
+  Args,
+  ID,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
+import { CreateProfileInput } from './dto/create-profile.input';
+import { UpdateProfileInput } from './dto/update-profile.input';
+import { Profile } from './entities/profile.entity';
+import { ProfileService } from './profile.service';
 
 @Resolver(() => Profile)
 export class ProfileResolver {
   constructor(
     private readonly profileService: ProfileService,
     private readonly skillService: SkillService,
+    private readonly experienceService: ExperienceService,
   ) {}
 
   @Mutation(() => Profile, { name: 'createProfile' })
@@ -34,6 +37,11 @@ export class ProfileResolver {
   @ResolveField(() => [Skill], { name: 'skills' })
   skills(@Parent() profile: Profile) {
     return this.skillService.get(profile.id);
+  }
+
+  @ResolveField(() => [Experience])
+  experience(@Parent() profile: Profile) {
+    return this.experienceService.get(profile.id);
   }
 
   @Mutation(() => Profile, { name: 'updateProfile' })

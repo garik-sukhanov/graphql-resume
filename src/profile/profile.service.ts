@@ -1,24 +1,25 @@
+import { PrismaService } from '@/prisma';
 import { Injectable } from '@nestjs/common';
 import { CreateProfileInput } from './dto/create-profile.input';
 import { UpdateProfileInput } from './dto/update-profile.input';
-import { PrismaService } from '@/prisma';
 
 @Injectable()
 export class ProfileService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create({ skills = [], ...profile }: CreateProfileInput) {
+  create({ skills = [], experiences = [], ...profile }: CreateProfileInput) {
     return this.prisma.profile.create({
       data: {
         ...profile,
         skills: { create: skills },
+        experiences: { create: experiences },
       },
     });
   }
 
   profile() {
     return this.prisma.profile.findFirstOrThrow({
-      orderBy: { createdAt: 'asc' },
+      orderBy: { createdAt: 'desc' },
     });
   }
 

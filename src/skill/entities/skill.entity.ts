@@ -1,5 +1,5 @@
 import { SkillCategory } from '@/generated/prisma/enums';
-import { ObjectType, Field, ID, Int, registerEnumType } from '@nestjs/graphql';
+import { Field, ID, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
 
 registerEnumType(SkillCategory, {
   name: 'SkillCategory',
@@ -19,10 +19,4 @@ export class Skill {
 
   @Field(() => Int)
   level: number;
-
-  @Field(() => Date)
-  createdAt: Date;
-
-  @Field(() => Date)
-  updatedAt: Date;
 }
