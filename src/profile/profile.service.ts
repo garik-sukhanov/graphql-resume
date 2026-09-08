@@ -7,25 +7,33 @@ import { PrismaService } from '@/prisma';
 export class ProfileService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createProfileInput: CreateProfileInput) {
-    return 'This action adds a new profile';
+  create({ skills = [], ...profile }: CreateProfileInput) {
+    return this.prisma.profile.create({
+      data: {
+        ...profile,
+        skills: { create: skills },
+      },
+    });
   }
 
-  findAll() {
-    return this.prisma.profile.findMany();
+  profile() {
+    return this.prisma.profile.findFirstOrThrow({
+      orderBy: { createdAt: 'asc' },
+    });
   }
 
-  findOne(id: string) {
-    return `this.prisma.profile.findUnique({
+  update(id: string, profile: UpdateProfileInput) {
+    return this.prisma.profile.update({
       where: { id },
-    })`;
+      data: { ...profile },
+    });
   }
 
-  update(id: string, updateProfileInput: UpdateProfileInput) {
-    return `This action updates a #${id} profile`;
-  }
-
-  remove(id: string) {
-    return `This action removes a #${id} profile`;
+  delete(profileId: string) {
+    return this.prisma.profile.delete({
+      where: {
+        id: profileId,
+      },
+    });
   }
 }

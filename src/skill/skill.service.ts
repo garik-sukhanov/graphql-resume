@@ -1,37 +1,31 @@
 import { Injectable } from '@nestjs/common';
-import { CreateSkillDTO } from './dto/create.skill.dto';
+import { AddSkillInput } from './dto/add.skill.input';
 import { PrismaService } from '@/prisma';
 
 @Injectable()
 export class SkillService {
   constructor(private readonly prisma: PrismaService) {}
-  create(createSkillInput: CreateSkillDTO) {
+  add(profileId: string, input: AddSkillInput) {
     return this.prisma.skill.create({
       data: {
-        name: createSkillInput.name,
-        category: createSkillInput.category,
-        level: createSkillInput.level,
-        profileId: createSkillInput.profileId,
+        name: input.name,
+        category: input.category,
+        level: input.level,
+        profileId,
       },
     });
   }
 
-  findMany() {
-    return this.prisma.skill.findMany();
-  }
-
-  findOne(id: string) {
-    return this.prisma.skill.findUnique({
-      where: {
-        id,
-      },
+  get(profileId: string) {
+    return this.prisma.skill.findMany({
+      where: { profileId },
     });
   }
 
-  remove(id: string) {
+  remove(skillId: string) {
     return this.prisma.skill.delete({
       where: {
-        id,
+        id: skillId,
       },
     });
   }

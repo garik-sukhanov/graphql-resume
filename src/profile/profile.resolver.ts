@@ -1,42 +1,51 @@
-import { Resolver, Query, Mutation, Args, ID, Int } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ID,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { ProfileService } from './profile.service';
 import { Profile } from './entities/profile.entity';
 import { CreateProfileInput } from './dto/create-profile.input';
 import { UpdateProfileInput } from './dto/update-profile.input';
+import { Skill } from '@/skill/entities/skill.entity';
+import { SkillService } from '@/skill/skill.service';
 
 @Resolver(() => Profile)
 export class ProfileResolver {
-  constructor(private readonly profileService: ProfileService) {}
+  constructor(
+    private readonly profileService: ProfileService,
+    private readonly skillService: SkillService,
+  ) {}
 
-  @Mutation(() => Profile)
-  createProfile(
-    @Args('createProfileInput') createProfileInput: CreateProfileInput,
-  ) {
-    return this.profileService.create(createProfileInput);
+  @Mutation(() => Profile, { name: 'createProfile' })
+  createProfile(@Args('input') input: CreateProfileInput) {
+    return this.profileService.create(input);
   }
 
-  @Query(() => [Profile], { name: 'findAllProfiles' })
-  findAllProfiles() {
-    return this.profileService.findAll();
+  @Query(() => Profile, { name: 'profile' })
+  profile() {
+    return this.profileService.profile();
   }
 
-  @Query(() => Profile, { name: 'findOneProfile', nullable: true })
-  findOneProfile(@Args('id', { type: () => ID }) id: string) {
-    return this.profileService.findOne(id);
+  @ResolveField(() => [Skill], { name: 'skills' })
+  skills(@Parent() profile: Profile) {
+    return this.skillService.get(profile.id);
   }
 
-  @Mutation(() => Profile)
+  @Mutation(() => Profile, { name: 'updateProfile' })
   updateProfile(
-    @Args('updateProfileInput') updateProfileInput: UpdateProfileInput,
+    @Args('profileId', { type: () => ID }) profileId: string,
+    @Args('input') input: UpdateProfileInput,
   ) {
-    return this.profileService.update(
-      updateProfileInput.id,
-      updateProfileInput,
-    );
+    return this.profileService.update(profileId, input);
   }
 
-  @Mutation(() => Profile)
-  removeProfile(@Args('id', { type: () => ID }) id: string) {
-    return this.profileService.remove(id);
+  @Mutation(() => Profile, { name: 'deleteProfile' })
+  deleteProfile(@Args('profileId', { type: () => ID }) profileId: string) {
+    return this.profileService.delete(profileId);
   }
 }

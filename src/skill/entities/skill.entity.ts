@@ -1,4 +1,10 @@
-import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
+import { SkillCategory } from '@/generated/prisma/enums';
+import { ObjectType, Field, ID, Int, registerEnumType } from '@nestjs/graphql';
+
+registerEnumType(SkillCategory, {
+  name: 'SkillCategory',
+  description: 'Категория навыка: ',
+});
 
 @ObjectType()
 export class Skill {
@@ -8,14 +14,11 @@ export class Skill {
   @Field(() => String)
   name: string;
 
-  @Field(() => String)
-  category: string;
+  @Field(() => SkillCategory)
+  category: SkillCategory;
 
   @Field(() => Int)
   level: number;
-
-  @Field(() => ID)
-  profileId: string;
 
   @Field(() => Date)
   createdAt: Date;

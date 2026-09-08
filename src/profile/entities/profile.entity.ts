@@ -1,4 +1,5 @@
-import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
+import { Skill } from '@/skill/entities/skill.entity';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
 
 @ObjectType()
 export class Profile {
@@ -8,11 +9,14 @@ export class Profile {
   @Field(() => String)
   email: string;
 
-  @Field(() => String, { nullable: true })
+  @Field(() => String)
   name: string;
 
   @Field(() => String, { nullable: true })
-  description: string;
+  description: string | null;
+
+  @Field(() => [Skill])
+  skills?: Skill[];
 
   @Field(() => Date)
   createdAt: Date;
