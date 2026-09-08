@@ -9,7 +9,7 @@ input AddSkillInput {
 }
 
 input CreateProfileInput {
-  description: String!
+  description: String
   email: String!
   name: String!
   skills: [AddSkillInput!]! = []

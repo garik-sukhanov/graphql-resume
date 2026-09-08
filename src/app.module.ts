@@ -6,6 +6,8 @@ import { ProfileModule } from './profile/profile.module';
 import { SkillModule } from './skill/skill.module';
 import { join } from 'path';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
+import { APP_FILTER } from '@nestjs/core';
+import { PrismaExceptionFilter } from './common/filters/prisma-exception.filter.js';
 
 @Module({
   imports: [
@@ -23,6 +25,12 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
     PrismaModule,
     ProfileModule,
     SkillModule,
+  ],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: PrismaExceptionFilter,
+    },
   ],
 })
 export class AppModule {}

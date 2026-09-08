@@ -12,6 +12,7 @@ export class PrismaService
       adapter: new PrismaPg({
         connectionString: process.env.DATABASE_URL,
       }),
+      errorFormat: 'minimal',
     });
   }
 

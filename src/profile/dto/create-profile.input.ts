@@ -17,14 +17,13 @@ export class CreateProfileInput {
   name: string;
 
   @Field(() => String)
-  @IsString()
   @IsEmail()
   email: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @IsOptional()
   @Length(1, 500)
-  description: string;
+  description?: string;
 
   @Field(() => [AddSkillInput], { defaultValue: [] })
   @ValidateNested({ each: true })

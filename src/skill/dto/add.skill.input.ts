@@ -1,10 +1,11 @@
 import { SkillCategory } from '@/generated/prisma/enums';
 import { InputType, Field, Int } from '@nestjs/graphql';
-import { IsEnum, Length, Max, Min } from 'class-validator';
+import { IsEnum, IsString, Length, Max, Min } from 'class-validator';
 
 @InputType()
 export class AddSkillInput {
   @Field(() => String)
+  @IsString()
   @Length(1, 50)
   name: string;
 
