@@ -1,5 +1,5 @@
 import { SkillCategory } from '@/generated/prisma/enums';
-import { InputType, Field, Int } from '@nestjs/graphql';
+import { Field, InputType, Int } from '@nestjs/graphql';
 import { IsEnum, IsString, Length, Max, Min } from 'class-validator';
 
 @InputType()

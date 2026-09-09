@@ -1,7 +1,7 @@
 import { ArgumentsHost, Catch } from '@nestjs/common';
 import { GqlExceptionFilter } from '@nestjs/graphql';
-import { GraphQLError } from 'graphql';
 import { Prisma } from '@prisma/generated/client';
+import { GraphQLError } from 'graphql';
 
 @Catch(Prisma.PrismaClientKnownRequestError)
 export class PrismaExceptionFilter implements GqlExceptionFilter {

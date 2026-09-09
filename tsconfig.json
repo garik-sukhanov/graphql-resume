@@ -16,7 +16,7 @@
     "skipLibCheck": true,
     "strict": true,
     "strictPropertyInitialization": false,
-    "types": ["node", "jest"],
+    "types": ["node"],
     "paths": {
       "@/*": ["./src/*"],
       "@prisma/generated": ["./src/generated/prisma"],

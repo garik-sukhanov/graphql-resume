@@ -13,3 +13,10 @@ cd graphql-resume
 cp example.env .env
 docker compose up --build
 ```
+
+## Тесты
+
+```bash
+npm test          # юнит-тесты, база не нужна
+npm run test:e2e  # требует поднятых контейнеров и заполненной базы
+```

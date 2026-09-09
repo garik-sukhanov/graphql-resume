@@ -59,16 +59,16 @@ export class ProfileService {
     });
   }
 
-  update(id: string, profile: UpdateProfileInput) {
-    this.guardOwner(id);
+  async update(id: string, profile: UpdateProfileInput) {
+    await this.guardOwner(id);
     return this.prisma.profile.update({
       where: { id },
       data: { ...profile },
     });
   }
 
-  delete(profileId: string) {
-    this.guardOwner(profileId);
+  async delete(profileId: string) {
+    await this.guardOwner(profileId);
     return this.prisma.profile.delete({
       where: {
         id: profileId,
