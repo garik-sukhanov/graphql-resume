@@ -20,8 +20,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@prisma/generated": ["./src/generated/prisma"],
-      "@prisma/generated/*": ["./src/generated/prisma/*"],
-      "@apollo/server": ["./node_modules/@apollo/server/dist/cjs/index.d.ts"]
+      "@prisma/generated/*": ["./src/generated/prisma/*"]
     }
   }
 }

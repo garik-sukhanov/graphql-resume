@@ -14,6 +14,8 @@ import { ProfileModule } from './profile/profile.module';
 import { ProjectModule } from './project/project.module';
 import { SkillModule } from './skill/skill.module';
 
+type ApolloPlugin = NonNullable<ApolloDriverConfig['plugins']>[number];
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -31,7 +33,7 @@ import { SkillModule } from './skill/skill.module';
       plugins: [
         ApolloServerPluginLandingPageLocalDefault({
           embed: true,
-        }),
+        }) as unknown as ApolloPlugin,
       ],
     }),
     PrismaModule,
