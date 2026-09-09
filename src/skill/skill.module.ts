@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { SkillService } from './skill.service';
 import { SkillResolver } from './skill.resolver';
+import { SkillService } from './skill.service';
 
 @Module({
   providers: [SkillResolver, SkillService],

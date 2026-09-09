@@ -11,6 +11,7 @@ export class ProfileService {
     skills = [],
     experiences = [],
     projects = [],
+    links = [],
     ...profile
   }: CreateProfileInput) {
     return this.prisma.profile.create({
@@ -19,6 +20,7 @@ export class ProfileService {
         skills: { create: skills },
         experiences: { create: experiences },
         projects: { create: projects },
+        links: { create: links },
       },
     });
   }

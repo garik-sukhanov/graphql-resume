@@ -1,4 +1,5 @@
 import { AddExperienceInput } from '@/experience/dto';
+import { AddLinkInput } from '@/link/dto/add.link.input';
 import { AddProjectInput } from '@/project/dto';
 import { AddSkillInput } from '@/skill/dto';
 import { Field, InputType } from '@nestjs/graphql';
@@ -6,6 +7,7 @@ import { Type } from 'class-transformer';
 import {
   IsEmail,
   IsOptional,
+  IsPhoneNumber,
   IsString,
   Length,
   ValidateNested,
@@ -21,6 +23,11 @@ export class CreateProfileInput {
   @Field(() => String)
   @IsEmail()
   email: string;
+
+  @Field(() => String, { nullable: true })
+  @IsOptional()
+  @IsPhoneNumber()
+  phone: string | null;
 
   @Field(() => String, { nullable: true })
   @IsOptional()
@@ -41,4 +48,9 @@ export class CreateProfileInput {
   @ValidateNested({ each: true })
   @Type(() => AddProjectInput)
   projects: AddProjectInput[];
+
+  @Field(() => [AddLinkInput], { defaultValue: [] })
+  @ValidateNested({ each: true })
+  @Type(() => AddLinkInput)
+  links: AddLinkInput[];
 }

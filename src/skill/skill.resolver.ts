@@ -1,7 +1,7 @@
-import { Resolver, Mutation, Args, ID } from '@nestjs/graphql';
-import { SkillService } from './skill.service';
-import { Skill } from './entities/skill.entity';
+import { Args, ID, Mutation, Resolver } from '@nestjs/graphql';
 import { AddSkillInput } from './dto';
+import { Skill } from './entities/skill.entity';
+import { SkillService } from './skill.service';
 
 @Resolver(() => Skill)
 export class SkillResolver {

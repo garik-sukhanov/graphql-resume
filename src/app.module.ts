@@ -10,6 +10,7 @@ import { APP_FILTER } from '@nestjs/core';
 import { PrismaExceptionFilter } from './common/filters/prisma-exception.filter.js';
 import { ExperienceModule } from './experience/experience.module';
 import { ProjectModule } from './project/project.module';
+import { LinkModule } from './link/link.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { ProjectModule } from './project/project.module';
     SkillModule,
     ExperienceModule,
     ProjectModule,
+    LinkModule,
   ],
   providers: [
     {

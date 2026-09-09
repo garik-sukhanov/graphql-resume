@@ -1,5 +1,11 @@
-import { InputType, Field } from '@nestjs/graphql';
-import { IsEmail, IsOptional, IsString, Length } from 'class-validator';
+import { Field, InputType } from '@nestjs/graphql';
+import {
+  IsEmail,
+  IsOptional,
+  IsPhoneNumber,
+  IsString,
+  Length,
+} from 'class-validator';
 
 @InputType()
 export class UpdateProfileInput {
@@ -13,6 +19,11 @@ export class UpdateProfileInput {
   @IsOptional()
   @IsEmail()
   email: string;
+
+  @Field(() => String, { nullable: true })
+  @IsOptional()
+  @IsPhoneNumber()
+  phone: string | null;
 
   @Field(() => String, { nullable: true })
   @IsOptional()

@@ -1,6 +1,6 @@
+import { PrismaService } from '@/prisma';
 import { Injectable } from '@nestjs/common';
 import { AddSkillInput } from './dto/add.skill.input';
-import { PrismaService } from '@/prisma';
 
 @Injectable()
 export class SkillService {
@@ -19,6 +19,7 @@ export class SkillService {
   get(profileId: string) {
     return this.prisma.skill.findMany({
       where: { profileId },
+      orderBy: { category: 'asc' },
     });
   }
 

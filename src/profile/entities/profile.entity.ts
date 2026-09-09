@@ -1,4 +1,5 @@
 import { Experience } from '@/experience/entities/experience.entity';
+import { Link } from '@/link/entities/link.entity';
 import { Project } from '@/project/entities/project.entity';
 import { Skill } from '@/skill/entities/skill.entity';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
@@ -10,6 +11,9 @@ export class Profile {
 
   @Field(() => String)
   email: string;
+
+  @Field(() => String, { nullable: true })
+  phone: string | null;
 
   @Field(() => String)
   name: string;
@@ -25,6 +29,9 @@ export class Profile {
 
   @Field(() => [Project])
   projects?: Project[];
+
+  @Field(() => [Link])
+  links?: Link[];
 
   @Field(() => Date)
   createdAt: Date;

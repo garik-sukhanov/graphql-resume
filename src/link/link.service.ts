@@ -1,24 +1,24 @@
 import { PrismaService } from '@/prisma';
 import { Injectable } from '@nestjs/common';
-import { AddProjectInput } from './dto';
+import { AddLinkInput } from './dto/add.link.input';
 
 @Injectable()
-export class ProjectService {
+export class LinkService {
   constructor(private readonly prisma: PrismaService) {}
-  create(profileId: string, input: AddProjectInput) {
-    return this.prisma.project.create({
+  add(profileId: string, input: AddLinkInput) {
+    return this.prisma.link.create({
       data: { ...input, profileId },
     });
   }
 
   get(profileId: string) {
-    return this.prisma.project.findMany({
+    return this.prisma.link.findMany({
       where: { profileId },
       orderBy: { order: 'asc' },
     });
   }
 
-  remove(projectId: string) {
-    return this.prisma.project.delete({ where: { id: projectId } });
+  remove(linkId: string) {
+    return this.prisma.link.delete({ where: { id: linkId } });
   }
 }

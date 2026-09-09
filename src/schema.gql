@@ -10,11 +10,18 @@ input AddExperienceInput {
   start: DateTime!
 }
 
+input AddLinkInput {
+  label: String!
+  order: Int! = 0
+  url: String!
+}
+
 input AddProjectInput {
   description: String!
   linkDeploy: String
   linkGitHub: String!
   name: String!
+  order: Int! = 0
 }
 
 input AddSkillInput {
@@ -27,7 +34,9 @@ input CreateProfileInput {
   description: String
   email: String!
   experiences: [AddExperienceInput!]! = []
+  links: [AddLinkInput!]! = []
   name: String!
+  phone: String
   projects: [AddProjectInput!]! = []
   skills: [AddSkillInput!]! = []
 }
@@ -46,13 +55,22 @@ type Experience {
   start: DateTime!
 }
 
+type Link {
+  id: ID!
+  label: String!
+  order: Int!
+  url: String!
+}
+
 type Mutation {
   addExperience(input: AddExperienceInput!, profileId: ID!): Experience!
+  addLink(input: AddLinkInput!, profileId: ID!): Link!
   addProject(input: AddProjectInput!, profileId: ID!): Project!
   addSkill(input: AddSkillInput!, profileId: ID!): Skill!
   createProfile(input: CreateProfileInput!): Profile!
   deleteProfile(profileId: ID!): Profile!
   removeExperience(experienceId: ID!): Experience!
+  removeLink(linkId: ID!): Link!
   removeProject(projectId: ID!): Project!
   removeSkill(skillId: ID!): Skill!
   updateProfile(input: UpdateProfileInput!, profileId: ID!): Profile!
@@ -64,7 +82,9 @@ type Profile {
   email: String!
   experiences: [Experience!]!
   id: ID!
+  links: [Link!]!
   name: String!
+  phone: String
   projects: [Project!]!
   skills: [Skill!]!
   updatedAt: DateTime!
@@ -76,11 +96,11 @@ type Project {
   linkDeploy: String
   linkGitHub: String!
   name: String!
+  order: Int!
 }
 
 type Query {
   profile: Profile!
-  project(profileId: String!): [Project!]!
 }
 
 type Skill {
@@ -102,4 +122,5 @@ input UpdateProfileInput {
   description: String
   email: String
   name: String
+  phone: String
 }

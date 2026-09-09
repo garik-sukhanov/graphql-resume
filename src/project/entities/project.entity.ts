@@ -1,4 +1,4 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class Project {
@@ -16,4 +16,7 @@ export class Project {
 
   @Field(() => String, { nullable: true })
   linkDeploy?: string | null;
+
+  @Field(() => Int, { defaultValue: 0 })
+  order: number;
 }
