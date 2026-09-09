@@ -101,6 +101,7 @@ type Project {
 
 type Query {
   profile: Profile!
+  profiles: [Profile!]!
 }
 
 type Skill {

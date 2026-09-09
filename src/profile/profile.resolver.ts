@@ -35,6 +35,11 @@ export class ProfileResolver {
     return this.profileService.create(input);
   }
 
+  @Query(() => [Profile], { name: 'profiles' })
+  profiles() {
+    return this.profileService.profiles();
+  }
+
   @Query(() => Profile, { name: 'profile' })
   profile() {
     return this.profileService.profile();
