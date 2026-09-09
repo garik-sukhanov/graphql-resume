@@ -27,7 +27,7 @@ export class ProfileService {
 
   profile() {
     return this.prisma.profile.findFirstOrThrow({
-      orderBy: { createdAt: 'desc' },
+      where: { email: process.env.OWNER_EMAIL },
     });
   }
 

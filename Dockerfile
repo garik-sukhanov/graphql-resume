@@ -22,7 +22,7 @@ RUN npm run build
 
 # --- migrator
 FROM builder AS migrator
-CMD ["npx", "prisma", "migrate", "deploy"]
+CMD ["sh", "-c", "npx prisma migrate deploy && npx prisma db seed"]
 
 # --- pruned
 FROM builder AS pruned
