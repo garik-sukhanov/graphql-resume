@@ -5,5 +5,6 @@ dist
 *.log
 *.log.*
 Dockerfile
+Dockerfile.vercel
 compose.yml
 compose.dev.yml
