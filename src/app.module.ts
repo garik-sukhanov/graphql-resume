@@ -25,6 +25,7 @@ type ApolloPlugin = NonNullable<ApolloDriverConfig['plugins']>[number];
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
+      introspection: true,
       autoSchemaFile:
         process.env.NODE_ENV === 'production'
           ? true
