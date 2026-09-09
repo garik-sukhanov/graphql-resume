@@ -19,7 +19,7 @@ export class SkillService {
   get(profileId: string) {
     return this.prisma.skill.findMany({
       where: { profileId },
-      orderBy: { category: 'asc' },
+      orderBy: [{ category: 'asc' }, { name: 'asc' }],
     });
   }
 
