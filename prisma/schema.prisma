@@ -1,0 +1,97 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  runtime      = "nodejs"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Profile {
+  id          String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email       String       @unique
+  name        String       @db.VarChar(50)
+  phone       String?      @db.VarChar(20)
+  description String?      @db.VarChar(500)
+  createdAt   DateTime     @default(now()) @map(name: "created_at")
+  updatedAt   DateTime     @default(now()) @updatedAt @map(name: "updated_at")
+  skills      Skill[]
+  experiences Experience[]
+  projects    Project[]
+  links       Link[]
+
+  @@map("Profiles")
+}
+
+enum SkillCategory {
+  LANGUAGE
+  FRAMEWORK
+  DATABASE
+  TOOL
+}
+
+model Skill {
+  id        String        @id @default(uuid()) @db.Uuid
+  name      String        @db.VarChar(50)
+  category  SkillCategory
+  level     Int
+  profile   Profile       @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profileId String        @db.Uuid
+  createdAt DateTime      @default(now()) @map(name: "created_at")
+  updatedAt DateTime      @default(now()) @updatedAt @map(name: "updated_at")
+
+  @@map("skill")
+}
+
+model Experience {
+  id           String    @id @default(uuid()) @db.Uuid
+  position     String    @db.VarChar(50)
+  company      String    @db.VarChar(50)
+  start        DateTime  @db.Date
+  end          DateTime? @db.Date
+  achievements String[]
+
+  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profileId String   @db.Uuid
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
+
+  @@map("experience")
+}
+
+model Project {
+  id          String  @id @default(uuid()) @db.Uuid
+  name        String  @db.VarChar(50)
+  description String  @db.VarChar(500)
+  linkGitHub  String  @db.VarChar(255)
+  linkDeploy  String? @db.VarChar(255)
+  order       Int     @default(0)
+
+  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profileId String   @db.Uuid
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
+
+  @@map("project")
+}
+
+model Link {
+  id    String @id @default(uuid()) @db.Uuid
+  label String @db.VarChar(50)
+  url   String @db.VarChar(255)
+  order Int    @default(0)
+
+  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profileId String   @db.Uuid
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
+
+  @@map("link")
+}

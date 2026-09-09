@@ -1,0 +1,127 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input AddExperienceInput {
+  achievements: [String!]!
+  company: String!
+  end: DateTime
+  position: String!
+  start: DateTime!
+}
+
+input AddLinkInput {
+  label: String!
+  order: Int! = 0
+  url: String!
+}
+
+input AddProjectInput {
+  description: String!
+  linkDeploy: String
+  linkGitHub: String!
+  name: String!
+  order: Int! = 0
+}
+
+input AddSkillInput {
+  category: SkillCategory!
+  level: Int!
+  name: String!
+}
+
+input CreateProfileInput {
+  description: String
+  email: String!
+  experiences: [AddExperienceInput!]! = []
+  links: [AddLinkInput!]! = []
+  name: String!
+  phone: String
+  projects: [AddProjectInput!]! = []
+  skills: [AddSkillInput!]! = []
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Experience {
+  achievements: [String!]!
+  company: String!
+  end: DateTime
+  id: ID!
+  position: String!
+  start: DateTime!
+}
+
+type Link {
+  id: ID!
+  label: String!
+  order: Int!
+  url: String!
+}
+
+type Mutation {
+  addExperience(input: AddExperienceInput!, profileId: ID!): Experience!
+  addLink(input: AddLinkInput!, profileId: ID!): Link!
+  addProject(input: AddProjectInput!, profileId: ID!): Project!
+  addSkill(input: AddSkillInput!, profileId: ID!): Skill!
+  createProfile(input: CreateProfileInput!): Profile!
+  deleteProfile(profileId: ID!): Profile!
+  removeExperience(experienceId: ID!): Experience!
+  removeLink(linkId: ID!): Link!
+  removeProject(projectId: ID!): Project!
+  removeSkill(skillId: ID!): Skill!
+  updateProfile(input: UpdateProfileInput!, profileId: ID!): Profile!
+}
+
+type Profile {
+  createdAt: DateTime!
+  description: String
+  email: String!
+  experiences: [Experience!]!
+  id: ID!
+  links: [Link!]!
+  name: String!
+  phone: String
+  projects: [Project!]!
+  skills: [Skill!]!
+  updatedAt: DateTime!
+}
+
+type Project {
+  description: String!
+  id: ID!
+  linkDeploy: String
+  linkGitHub: String!
+  name: String!
+  order: Int!
+}
+
+type Query {
+  profile: Profile!
+  profiles: [Profile!]!
+}
+
+type Skill {
+  category: SkillCategory!
+  id: ID!
+  level: Int!
+  name: String!
+}
+
+"""Категория навыка: """
+enum SkillCategory {
+  DATABASE
+  FRAMEWORK
+  LANGUAGE
+  TOOL
+}
+
+input UpdateProfileInput {
+  description: String
+  email: String
+  name: String
+  phone: String
+}
