@@ -53,6 +53,8 @@ export class ProfileService {
     });
   }
 
+  // данная ручка оставлена как отладочная, для проверки создания новых профилей.
+  // проблему N+1 не решал намерено, тк DataLoader сильно увеличивал кодовую базу и не влиял на основное задание
   profiles() {
     return this.prisma.profile.findMany({
       orderBy: { createdAt: 'desc' },

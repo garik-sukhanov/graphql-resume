@@ -23,7 +23,9 @@ import { SkillModule } from './skill/skill.module';
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      autoSchemaFile: process.env.VERCEL
+        ? true
+        : join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
       graphiql: false,
       plugins: [
