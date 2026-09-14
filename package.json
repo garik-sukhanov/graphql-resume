@@ -24,7 +24,8 @@
     "migrate:reset": "prisma migrate reset",
     "prisma:generate": "prisma generate",
     "prisma:studio": "prisma studio",
-    "seed": "prisma db seed"
+    "seed": "prisma db seed",
+    "seed:bulk": "tsx prisma/seed-bulk.ts"
   },
   "dependencies": {
     "@apollo/server": "^5.5.1",

@@ -13,6 +13,7 @@ export class PrismaService
       adapter: new PrismaPg({
         connectionString: config.getOrThrow<string>('DATABASE_URL'),
       }),
+      log: ['query'],
       errorFormat: 'minimal',
     });
   }
