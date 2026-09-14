@@ -47,6 +47,7 @@ model Skill {
   createdAt DateTime      @default(now()) @map(name: "created_at")
   updatedAt DateTime      @default(now()) @updatedAt @map(name: "updated_at")
 
+  @@index([profileId])
   @@map("skill")
 }
 
