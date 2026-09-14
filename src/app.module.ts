@@ -9,6 +9,8 @@ import { PrismaExceptionFilter } from './common/filters/prisma-exception.filter.
 import { validate } from './config/env.validation';
 import { ExperienceModule } from './experience/experience.module';
 import { LinkModule } from './link/link.module';
+import { LoadersFactory } from './loaders/data-loader.service.js';
+import { LoadersModule } from './loaders/loaders.module';
 import { PrismaModule } from './prisma/prisma.module.js';
 import { ProfileModule } from './profile/profile.module';
 import { ProjectModule } from './project/project.module';
@@ -21,18 +23,25 @@ import { SkillModule } from './skill/skill.module';
       cache: true,
       validate,
     }),
-    GraphQLModule.forRoot<ApolloDriverConfig>({
+    GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: process.env.VERCEL
-        ? true
-        : join(process.cwd(), 'src/schema.gql'),
-      sortSchema: true,
-      graphiql: false,
-      plugins: [
-        ApolloServerPluginLandingPageLocalDefault({
-          embed: true,
+      imports: [LoadersModule],
+      inject: [LoadersFactory],
+      useFactory: (loaderFactory: LoadersFactory) => ({
+        context: () => ({
+          loaders: loaderFactory.create(),
         }),
-      ],
+        autoSchemaFile: process.env.VERCEL
+          ? true
+          : join(process.cwd(), 'src/schema.gql'),
+        sortSchema: true,
+        graphiql: false,
+        plugins: [
+          ApolloServerPluginLandingPageLocalDefault({
+            embed: true,
+          }),
+        ],
+      }),
     }),
     PrismaModule,
     ProfileModule,
@@ -40,6 +49,7 @@ import { SkillModule } from './skill/skill.module';
     ExperienceModule,
     ProjectModule,
     LinkModule,
+    LoadersModule,
   ],
   providers: [
     {

@@ -58,6 +58,7 @@ export class ProfileService {
   profiles() {
     return this.prisma.profile.findMany({
       orderBy: { createdAt: 'desc' },
+      take: 3,
     });
   }
 

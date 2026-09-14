@@ -2,12 +2,14 @@ import { Experience } from '@/experience/entities/experience.entity';
 import { ExperienceService } from '@/experience/experience.service';
 import { Link } from '@/link/entities/link.entity';
 import { LinkService } from '@/link/link.service';
+import { GqlContext } from '@/loaders/loaders';
 import { Project } from '@/project/entities/project.entity';
 import { ProjectService } from '@/project/project.service';
 import { Skill } from '@/skill/entities/skill.entity';
 import { SkillService } from '@/skill/skill.service';
 import {
   Args,
+  Context,
   ID,
   Mutation,
   Parent,
@@ -46,8 +48,9 @@ export class ProfileResolver {
   }
 
   @ResolveField(() => [Skill], { name: 'skills' })
-  skills(@Parent() profile: Profile) {
-    return this.skillService.get(profile.id);
+  skills(@Parent() profile: Profile, @Context() ctx: GqlContext) {
+    // return this.skillService.get(profile.id);
+    return ctx.loaders.skillsByProfile.load(profile.id);
   }
 
   @ResolveField(() => [Experience])

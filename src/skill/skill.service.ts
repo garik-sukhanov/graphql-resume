@@ -23,6 +23,13 @@ export class SkillService {
     });
   }
 
+  getManyByProfileIds(profileIds: readonly string[]) {
+    return this.prisma.skill.findMany({
+      where: { profileId: { in: [...profileIds] } },
+      orderBy: [{ category: 'asc' }, { name: 'asc' }],
+    });
+  }
+
   remove(skillId: string) {
     return this.prisma.skill.delete({
       where: {
